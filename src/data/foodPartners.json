@@ -1,0 +1,167 @@
+[
+  {
+    "name": "Puttu",
+    "imageIcon": "🍚",
+    "personalityType": "Traditional Romantic",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "LONG-TERM RELATIONSHIP",
+    "greenFlags": "[\"Traditional\", \"Reliable\", \"Banana-compatible\", \"Comforting\", \"Stable\"]",
+    "redFlags": "[\"Previous relationship complications\", \"Slight trust concerns\"]",
+    "datingHistory": "[{\"partner\": \"Kadala Curry\", \"duration\": \"2 weeks\", \"status\": \"ENDED\", \"reason\": \"Trust dispute following an alleged Appam incident.\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 98, \"taste\": 94, \"texture\": 91, \"frequency\": 96, \"stability\": 82, \"history\": 84}"
+  },
+  {
+    "name": "Kadala Curry",
+    "imageIcon": "🍛",
+    "personalityType": "Spicy & Demanding",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "EXCITEMENT & LOYALTY",
+    "greenFlags": "[\"Flavorful\", \"Protective\", \"Cultural staple\"]",
+    "redFlags": "[\"Can be overwhelming\", \"Jealous of other pairings\"]",
+    "datingHistory": "[{\"partner\": \"Puttu\", \"duration\": \"2 weeks\", \"status\": \"ENDED\", \"reason\": \"Caught Puttu associating with Appam.\"}, {\"partner\": \"Appam\", \"duration\": \"3 days\", \"status\": \"ENDED\", \"reason\": \"Mutual incompatibility.\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 40, \"taste\": 60, \"texture\": 55, \"frequency\": 30, \"stability\": 40, \"history\": 60}"
+  },
+  {
+    "name": "Upma",
+    "imageIcon": "🥣",
+    "personalityType": "Introverted Loyalist",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "SOMEONE TO ACCEPT IT AS IS",
+    "greenFlags": "[\"Low maintenance\", \"Always available\", \"Dependable\"]",
+    "redFlags": "[\"Can be dry\", \"Often misunderstood\"]",
+    "datingHistory": "[]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 85, \"taste\": 70, \"texture\": 80, \"frequency\": 60, \"stability\": 90, \"history\": 100}"
+  },
+  {
+    "name": "Ghee",
+    "imageIcon": "🧈",
+    "personalityType": "Supportive Partner",
+    "relationshipStatus": "COMPLICATED",
+    "whatItSeeks": "TO ENHANCE OTHERS",
+    "greenFlags": "[\"Makes everything better\", \"Rich personality\", \"Smooth\"]",
+    "redFlags": "[\"Clingy\", \"Too heavy in large doses\"]",
+    "datingHistory": "[{\"partner\": \"Dosa\", \"duration\": \"5 years\", \"status\": \"ON_BREAK\", \"reason\": \"Needed space.\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 60, \"taste\": 88, \"texture\": 90, \"frequency\": 50, \"stability\": 70, \"history\": 85}"
+  },
+  {
+    "name": "Sugar",
+    "imageIcon": "🍬",
+    "personalityType": "Attention Seeker",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "A SWEET CONNECTION",
+    "greenFlags": "[\"Sweet\", \"Instantly gratifying\", \"Universally liked\"]",
+    "redFlags": "[\"Unhealthy attachment\", \"Energy crashes\"]",
+    "datingHistory": "[{\"partner\": \"Tea\", \"duration\": \"Forever\", \"status\": \"OPEN_RELATIONSHIP\", \"reason\": \"Polyamorous\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 90, \"taste\": 95, \"texture\": 70, \"frequency\": 80, \"stability\": 60, \"history\": 90}"
+  },
+  {
+    "name": "Chapathi",
+    "imageIcon": "🫓",
+    "personalityType": "Flexible & Accommodating",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "A STABLE ROLL",
+    "greenFlags": "[\"Versatile\", \"Healthy\", \"Wraps around you\"]",
+    "redFlags": "[\"Can get rigid when cold\"]",
+    "datingHistory": "[]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 40, \"taste\": 75, \"texture\": 85, \"frequency\": 40, \"stability\": 80, \"history\": 100}"
+  },
+  {
+    "name": "Kuboos",
+    "imageIcon": "🥙",
+    "personalityType": "Modern Expatriate",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "CROSS-CULTURAL ROMANCE",
+    "greenFlags": "[\"Worldly\", \"Soft\", \"Accessible\"]",
+    "redFlags": "[\"Superficial connections\"]",
+    "datingHistory": "[{\"partner\": \"Hummus\", \"duration\": \"1 year\", \"status\": \"ENDED\", \"reason\": \"Moved to a different cuisine.\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 50, \"taste\": 80, \"texture\": 85, \"frequency\": 60, \"stability\": 70, \"history\": 80}"
+  },
+  {
+    "name": "Triple Chocolate",
+    "imageIcon": "🍫",
+    "personalityType": "Indulgent Aristocrat",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "LUXURY PAIRING",
+    "greenFlags": "[\"Decadent\", \"Romantic\", \"Mood booster\"]",
+    "redFlags": "[\"High maintenance\", \"Intense\"]",
+    "datingHistory": "[{\"partner\": \"Strawberry\", \"duration\": \"1 month\", \"status\": \"ENDED\", \"reason\": \"Too cliché.\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 30, \"taste\": 92, \"texture\": 75, \"frequency\": 40, \"stability\": 65, \"history\": 95}"
+  },
+  {
+    "name": "Milk",
+    "imageIcon": "🥛",
+    "personalityType": "Nurturing Caregiver",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "SMOOTH BLENDING",
+    "greenFlags": "[\"Wholesome\", \"Calming\", \"Classic\"]",
+    "redFlags": "[\"Spoils easily if neglected\"]",
+    "datingHistory": "[{\"partner\": \"Cereal\", \"duration\": \"Morning routine\", \"status\": \"CASUAL\", \"reason\": \"Routine grew stale.\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 85, \"taste\": 90, \"texture\": 95, \"frequency\": 80, \"stability\": 85, \"history\": 90}"
+  },
+  {
+    "name": "Beef Curry",
+    "imageIcon": "🥩",
+    "personalityType": "Strong Personality",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "SOMEONE WHO CAN HANDLE THE SPICE",
+    "greenFlags": "[\"Deeply flavorful\", \"Robust\", \"Unforgettable\"]",
+    "redFlags": "[\"Intimidating\", \"Not for everyone\"]",
+    "datingHistory": "[{\"partner\": \"Parotta\", \"duration\": \"Legendary\", \"status\": \"MARRIED\", \"reason\": \"Cannot be separated.\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 15, \"taste\": 40, \"texture\": 30, \"frequency\": 10, \"stability\": 20, \"history\": 10}"
+  },
+  {
+    "name": "Panchamritham",
+    "imageIcon": "🍯",
+    "personalityType": "Divine Entity",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "SPIRITUAL UNION",
+    "greenFlags": "[\"Sacred\", \"Incredibly sweet\", \"Preserves well\"]",
+    "redFlags": "[\"Complex mixture already\", \"Hard to get\"]",
+    "datingHistory": "[]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 99, \"taste\": 95, \"texture\": 85, \"frequency\": 70, \"stability\": 95, \"history\": 100}"
+  },
+  {
+    "name": "Chicken Curry",
+    "imageIcon": "🍗",
+    "personalityType": "Crowd Pleaser",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "CASUAL FUN",
+    "greenFlags": "[\"Popular\", \"Easygoing\", \"Comforting\"]",
+    "redFlags": "[\"A bit basic\"]",
+    "datingHistory": "[{\"partner\": \"Rice\", \"duration\": \"Daily\", \"status\": \"CASUAL\", \"reason\": \"Routine.\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 20, \"taste\": 45, \"texture\": 35, \"frequency\": 15, \"stability\": 30, \"history\": 50}"
+  },
+  {
+    "name": "Pappadam",
+    "imageIcon": "🥠",
+    "personalityType": "Crunchy & Chaotic",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "A SOFT BALANCE",
+    "greenFlags": "[\"Crispy\", \"Fun\", \"Adds texture\"]",
+    "redFlags": "[\"Crumbles under pressure\", \"Salty\"]",
+    "datingHistory": "[{\"partner\": \"Payasam\", \"duration\": \"Festive\", \"status\": \"COMPLICATED\", \"reason\": \"Weird but it works.\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 88, \"taste\": 85, \"texture\": 99, \"frequency\": 75, \"stability\": 60, \"history\": 70}"
+  },
+  {
+    "name": "Honey",
+    "imageIcon": "🍯",
+    "personalityType": "Sticky Sweet",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "EVERLASTING LOVE",
+    "greenFlags": "[\"Never spoils\", \"Natural\", \"Healing\"]",
+    "redFlags": "[\"Clings too much\"]",
+    "datingHistory": "[]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 85, \"taste\": 92, \"texture\": 88, \"frequency\": 70, \"stability\": 95, \"history\": 100}"
+  },
+  {
+    "name": "Oats",
+    "imageIcon": "🥣",
+    "personalityType": "Health Nut",
+    "relationshipStatus": "SINGLE",
+    "whatItSeeks": "A SENSIBLE DIET",
+    "greenFlags": "[\"Good for the heart\", \"Responsible\"]",
+    "redFlags": "[\"Boring\", \"Requires jazzing up\"]",
+    "datingHistory": "[{\"partner\": \"Water\", \"duration\": \"1 day\", \"status\": \"ENDED\", \"reason\": \"Too depressing.\"}]",
+    "compatibilityAttributes": "{\"traditionalPairing\": 60, \"taste\": 80, \"texture\": 85, \"frequency\": 80, \"stability\": 90, \"history\": 95}"
+  }
+]

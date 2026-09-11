@@ -1,0 +1,132 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db" // Using SQLite for zero-setup hackathon
+}
+
+model Banana {
+  id                       String        @id @default(uuid())
+  registrationNumber       String        @unique
+  officialName             String
+  nickname                 String?
+  photo                    String?
+  district                 String?
+  state                    String?
+  description              String?
+  registrationDate         DateTime      @default(now())
+  estimatedBirthDate       DateTime?
+  origin                   String?
+  scientificClassification String?
+  estimatedVariety         String?
+  varietyConfidence        Float?
+  relationshipStatus       String?
+  currentPartnerId         String?
+  bananaPrintId            String?
+  bananaPrintVersion       String?
+  featureSignature         String?
+  bananaPrintSignature     String?
+  bananaPrintHash          String?
+  verificationCode         String?
+  bananaPrintGeneratedAt   DateTime?
+  datingAvailability       String        @default("NOT_ACTIVATED")
+  datingIntention          String?
+  registryStatus           String        @default("ACTIVE")
+  createdAt                DateTime      @default(now())
+  updatedAt                DateTime      @updatedAt
+
+  analyses                 Analysis[]
+  documents                Document[]
+  auditEvents              AuditEvent[]
+  relationships            Relationship[]
+
+  @@index([registrationNumber])
+  @@index([officialName])
+  @@index([origin])
+  @@index([registryStatus])
+}
+
+model Analysis {
+  id                  String   @id @default(uuid())
+  bananaId            String
+  banana              Banana   @relation(fields: [bananaId], references: [id], onDelete: Cascade)
+  imageReference      String?
+  detectionConfidence Float?
+  length              Float?
+  width               Float?
+  curvature           Float?
+  straightnessIndex   Float?
+  ripeness            Float?
+  peelAssessment      String?
+  conditionIndex      Float?
+  analysisMethod      String
+  modelSource         String?
+  timestamp           DateTime @default(now())
+  version             String?
+}
+
+model FoodPartner {
+  id                      String         @id @default(uuid())
+  name                    String
+  category                String?
+  description             String?
+  imageIcon               String?
+  personalityType         String?
+  relationshipStatus      String?
+  greenFlags              String?
+  redFlags                String?
+  datingHistory           String?
+  whatItSeeks             String?
+  compatibilityAttributes String?
+  culinaryHistory         String?
+
+  relationships           Relationship[]
+}
+
+model Relationship {
+  id                         String      @id @default(uuid())
+  bananaId                   String
+  banana                     Banana      @relation(fields: [bananaId], references: [id], onDelete: Cascade)
+  foodPartnerId              String
+  foodPartner                FoodPartner @relation(fields: [foodPartnerId], references: [id], onDelete: Cascade)
+  status                     String
+  compatibilityScore         Float?
+  traditionalPrecedenceScore Float?
+  tasteChemistryScore        Float?
+  textureAlignmentScore      Float?
+  riskLevel                  String?
+  startDate                  DateTime?
+  endDate                    DateTime?
+  historyNotes               String?
+  createdAt                  DateTime    @default(now())
+  updatedAt                  DateTime    @updatedAt
+}
+
+model Document {
+  id               String   @id @default(uuid())
+  bananaId         String
+  banana           Banana   @relation(fields: [bananaId], references: [id], onDelete: Cascade)
+  documentType     String
+  documentNumber   String   @unique
+  issueDate        DateTime @default(now())
+  version          String?
+  verificationCode String?
+  documentHash     String?
+  qrReference      String?
+  fileReference    String?
+  status           String   @default("VALID")
+  createdAt        DateTime @default(now())
+}
+
+model AuditEvent {
+  id          String   @id @default(uuid())
+  bananaId    String
+  banana      Banana   @relation(fields: [bananaId], references: [id], onDelete: Cascade)
+  eventType   String
+  description String
+  source      String
+  timestamp   DateTime @default(now())
+  metadata    String?
+}
