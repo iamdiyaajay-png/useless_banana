@@ -1,9 +1,17 @@
 import { PrismaClient } from '@prisma/client';
 
-// Standard singleton pattern for PrismaClient in Next.js
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
-export const prisma = globalForPrisma.prisma || new PrismaClient();
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+// Standard singleton pattern for PrismaClient in Next.js (Lazily instantiated via Proxy to avoid Vercel build errors)
+const globalForPrisma = global as unknown as { _prisma: PrismaClient };
+
+export const prisma = new Proxy({} as PrismaClient, {
+  get(target, prop) {
+    if (!globalForPrisma._prisma) {
+      globalForPrisma._prisma = new PrismaClient();
+      if (process.env.NODE_ENV !== 'production') globalForPrisma._prisma = globalForPrisma._prisma;
+    }
+    return (globalForPrisma._prisma as any)[prop];
+  }
+});
 
 /**
  * Audit Event Logger
