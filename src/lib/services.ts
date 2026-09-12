@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../generated/client';
 
 // Standard singleton pattern for PrismaClient in Next.js
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
