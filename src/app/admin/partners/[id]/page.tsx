@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import React from 'react';
 import { prisma } from '@/lib/services';
 import { isAuthenticated, updateFoodPartner } from '@/app/actions/admin';

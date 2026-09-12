@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import React from 'react';
 import { verifyRecord } from '@/app/actions/verify';
 import { OfficialCard } from '@/components/ui/OfficialCard';

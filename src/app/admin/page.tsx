@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import React from 'react';
 import { adminLogin, isAuthenticated } from '@/app/actions/admin';
 import { redirect } from 'next/navigation';

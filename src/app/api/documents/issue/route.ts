@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma, logEvent, generateDocumentNumber } from '@/lib/services';
 import { createHash } from 'crypto';
