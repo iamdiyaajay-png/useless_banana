@@ -34,7 +34,7 @@ export default async function RegistrationSuccessPage({ searchParams }: { search
         <div style={{ fontSize: '2rem', color: 'var(--status-green)' }}>✓</div>
         <div>
           <h2 style={{ margin: 0, color: 'var(--status-green)', fontSize: '1.25rem' }}>REGISTRATION CONFIRMED</h2>
-          <div style={{ color: 'var(--status-green)', opacity: 0.8 }}>Subject has been officially recorded in the National Banana Registry.</div>
+          <div style={{ color: 'var(--status-green)', opacity: 0.8 }}>Subject has been officially recorded in the Pazamayi Sheriyayi.</div>
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import RegistryArchive from '@/components/RegistryArchive';
 
 export const metadata = {
-  title: 'Registry Archive - National Banana Registry',
+  title: 'Registry Archive - Pazamayi Sheriyayi',
 };
 
 export default function RegistryPage() {

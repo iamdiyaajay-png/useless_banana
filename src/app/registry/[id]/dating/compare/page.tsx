@@ -26,7 +26,7 @@ export default async function ComparePage({ params }: { params: Promise<{ id: st
            Select two potential food partners to run a deterministic side-by-side compatibility comparison.
          </p>
          
-         <PartnerComparison partners={partners} />
+         <PartnerComparison partners={partners} banana={banana} />
       </OfficialCard>
     </div>
   );

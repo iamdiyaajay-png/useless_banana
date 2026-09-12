@@ -3,6 +3,7 @@ import { prisma } from '@/lib/services';
 import { notFound } from 'next/navigation';
 import { OfficialCard } from '@/components/ui/OfficialCard';
 import { CompatibilityActions } from '@/components/CompatibilityActions';
+import { PartnerIcon } from '@/components/ui/PartnerIcon';
 import Link from 'next/link';
 
 export const revalidate = 0;
@@ -17,7 +18,7 @@ export default async function PartnerProfilePage({ params }: { params: Promise<{
 
   const greenFlags = JSON.parse(partner.greenFlags || '[]');
   const redFlags = JSON.parse(partner.redFlags || '[]');
-  const datingHistory = JSON.parse(partner.datingHistory || '[]');
+  const datingHistory = partner.datingHistory || '';
 
   return (
     <div>
@@ -31,9 +32,7 @@ export default async function PartnerProfilePage({ params }: { params: Promise<{
         <div style={{ flex: '2 1 500px' }}>
           <OfficialCard title="Partner Relationship Profile">
             <div style={{ display: 'flex', gap: '24px', alignItems: 'center', marginBottom: '32px' }}>
-              <div style={{ fontSize: '5rem', backgroundColor: '#ffe6e6', padding: '24px', borderRadius: '50%', border: '4px solid #ffcccc' }}>
-                {partner.imageIcon || '🍽️'}
-              </div>
+              <PartnerIcon icon={partner.imageIcon} size="6rem" style={{ backgroundColor: '#ffe6e6', padding: '12px', border: '4px solid #ffcccc' }} />
               <div>
                 <h2 style={{ margin: '0 0 8px 0', fontSize: '2rem', color: 'var(--text-dark)' }}>{partner.name}</h2>
                 <div style={{ fontSize: '1.2rem', color: 'var(--gov-blue)', fontFamily: 'serif', fontStyle: 'italic' }}>
@@ -62,22 +61,11 @@ export default async function PartnerProfilePage({ params }: { params: Promise<{
             </div>
 
             <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '8px', marginBottom: '16px', color: 'var(--gov-blue)' }}>💔 LOVE HISTORY</h3>
-            {datingHistory.length === 0 ? (
-              <div style={{ backgroundColor: '#f9f9f9', padding: '24px', textAlign: 'center', borderRadius: '4px', fontStyle: 'italic', color: 'var(--text-light)' }}>
-                <strong>Single since birth.</strong><br/>No previous relationship history recorded in the registry.
-              </div>
+            {!datingHistory ? (
+              <p style={{ color: 'var(--text-light)', fontStyle: 'italic' }}>No past records available.</p>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {datingHistory.map((h: any, i: number) => (
-                  <div key={i} style={{ border: '1px solid var(--border-color)', padding: '16px', borderRadius: '4px', backgroundColor: '#fafafa' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                      <strong style={{ fontSize: '1.1rem' }}>{h.partner}</strong>
-                      <span style={{ color: 'var(--status-warning)', fontWeight: 'bold' }}>{h.status}</span>
-                    </div>
-                    <div style={{ fontSize: '0.9rem', color: 'var(--text-light)', marginBottom: '8px' }}>Duration: {h.duration}</div>
-                    <div style={{ fontSize: '0.9rem' }}><strong>Reason:</strong> {h.reason}</div>
-                  </div>
-                ))}
+              <div style={{ border: '1px solid var(--border-color)', padding: '16px', borderRadius: '4px', backgroundColor: '#fafafa' }}>
+                <p style={{ margin: 0, whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>{datingHistory}</p>
               </div>
             )}
           </OfficialCard>

@@ -4,7 +4,7 @@ import { GovernmentHeader } from '@/components/ui/GovernmentHeader';
 import { Sidebar } from '@/components/ui/Sidebar';
 
 export const metadata: Metadata = {
-  title: 'National Banana Registry',
+  title: 'Pazamayi Sheriyayi',
   description: 'Official Government Portal for the Registration and Analysis of Bananas.',
 };
 

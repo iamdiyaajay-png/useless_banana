@@ -97,8 +97,8 @@ export default async function RegistryMasterProfilePage({ params }: { params: Pr
                {/* Relationship */}
                <Link href={`/registry/${banana.id}/dating`} style={{ display: 'block', padding: '16px', border: '1px solid var(--border-color)', borderRadius: '4px', textDecoration: 'none', color: 'inherit' }}>
                  <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase' }}>RELATIONSHIP</div>
-                 <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: banana.datingAvailability === 'ACTIVE' || banana.relationshipStatus === 'IN_RELATIONSHIP' ? '#cc0000' : 'var(--text-light)' }}>
-                   {banana.relationshipStatus === 'IN_RELATIONSHIP' ? `💘 ${activeRelationship?.foodPartner.name}` : banana.datingAvailability === 'ACTIVE' ? '💘 Active Pool' : 'Not Active'}
+                 <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: banana.datingAvailability === 'OPEN_FOR_MATCHING' || banana.relationshipStatus === 'IN_RELATIONSHIP' ? '#cc0000' : 'var(--text-light)' }}>
+                   {banana.relationshipStatus === 'IN_RELATIONSHIP' ? `💘 ${activeRelationship?.foodPartner.name || 'Partner'}` : banana.datingAvailability === 'OPEN_FOR_MATCHING' ? '💘 Active Pool' : 'Not Active'}
                  </div>
                  {activeRelationship && <div style={{ fontSize: '0.9rem', marginTop: '8px' }}>Compatibility: {activeRelationship.compatibilityScore}%</div>}
                </Link>

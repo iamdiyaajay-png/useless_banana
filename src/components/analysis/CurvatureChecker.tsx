@@ -98,31 +98,115 @@ export function CurvatureChecker({ bananaId }: { bananaId: string }) {
 
     const render = () => {
       if (!stream) return;
+      
+      // Match canvas internal resolution to its display size to avoid stretching
+      const displayWidth = canvas.clientWidth;
+      const displayHeight = canvas.clientHeight;
+      if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+        canvas.width = displayWidth;
+        canvas.height = displayHeight;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       const width = canvas.width;
       const height = canvas.height;
+      const centerX = width / 2;
+      const centerY = height / 2;
 
-      // Draw bounding box
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+      // 1. & 3. Alignment grid / measurement guide
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.lineWidth = 1;
+      const gridSize = 50;
+      for (let x = centerX % gridSize; x < width; x += gridSize) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+      }
+      for (let y = centerY % gridSize; y < height; y += gridSize) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
+      }
+
+      // 1. Horizontal reference axis
+      ctx.strokeStyle = 'rgba(0, 255, 255, 0.7)'; // Cyan
       ctx.lineWidth = 2;
-      ctx.setLineDash([5, 5]);
-      ctx.strokeRect(width * 0.1, height * 0.2, width * 0.8, height * 0.6);
-
-      // Draw Center crosshair
+      ctx.setLineDash([8, 4]);
       ctx.beginPath();
-      ctx.moveTo(width / 2, height * 0.1);
-      ctx.lineTo(width / 2, height * 0.9);
-      ctx.moveTo(width * 0.05, height / 2);
-      ctx.lineTo(width * 0.95, height / 2);
+      ctx.moveTo(0, centerY);
+      ctx.lineTo(width, centerY);
       ctx.stroke();
 
-      // Guidelines Text
-      ctx.font = '14px monospace';
-      ctx.fillStyle = '#fff';
+      // 2. Vertical reference axis
+      ctx.beginPath();
+      ctx.moveTo(centerX, 0);
+      ctx.lineTo(centerX, height);
+      ctx.stroke();
+      ctx.setLineDash([]); // Reset line dash
+
+      // 4. Banana positioning zone (professional outline)
+      ctx.strokeStyle = 'rgba(255, 255, 0, 0.6)';
+      ctx.lineWidth = 3;
+      
+      const guideWidth = Math.min(width * 0.7, 600);
+      const guideHeight = guideWidth * 0.25;
+      const startX = centerX - guideWidth / 2;
+      const endX = centerX + guideWidth / 2;
+      
+      ctx.beginPath();
+      // Outer gentle arc
+      ctx.moveTo(startX, centerY + 20);
+      ctx.quadraticCurveTo(centerX, centerY - guideHeight, endX, centerY + 20);
+      // Inner gentle arc
+      ctx.quadraticCurveTo(centerX, centerY - guideHeight + 50, startX, centerY + 20);
+      ctx.stroke();
+
+      // 5. Endpoint markers
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.8)';
+      ctx.beginPath(); ctx.arc(startX, centerY + 20, 6, 0, 2 * Math.PI); ctx.fill();
+      ctx.beginPath(); ctx.arc(endX, centerY + 20, 6, 0, 2 * Math.PI); ctx.fill();
+      
+      // Target brackets at ends
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      // Left bracket
+      ctx.beginPath(); ctx.moveTo(startX - 15, centerY + 10); ctx.lineTo(startX - 15, centerY + 30); ctx.moveTo(startX - 15, centerY + 20); ctx.lineTo(startX - 5, centerY + 20); ctx.stroke();
+      // Right bracket
+      ctx.beginPath(); ctx.moveTo(endX + 15, centerY + 10); ctx.lineTo(endX + 15, centerY + 30); ctx.moveTo(endX + 15, centerY + 20); ctx.lineTo(endX + 5, centerY + 20); ctx.stroke();
+
+      // Central Alignment Reticle
+      ctx.strokeStyle = 'rgba(0, 255, 255, 0.9)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(centerX, centerY, 20, 0, 2 * Math.PI); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(centerX - 30, centerY); ctx.lineTo(centerX + 30, centerY); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(centerX, centerY - 30); ctx.lineTo(centerX, centerY + 30); ctx.stroke();
+
+      // 6. Text instruction
+      ctx.font = 'bold 16px "Courier New", monospace';
+      ctx.fillStyle = '#00ffff';
       ctx.textAlign = 'center';
-      ctx.fillText('ALIGN SPECIMEN LONGITUDINALLY', width / 2, height * 0.15);
-      ctx.fillText('KEEP CAMERA PARALLEL TO SURFACE', width / 2, height * 0.85);
+      ctx.fillText('ALIGN BANANA ALONG REFERENCE AXIS', centerX, centerY - guideHeight - 20);
+
+      // Corner Markers
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 4;
+      const corner = 40;
+      const m = 30; // margin
+      ctx.beginPath(); ctx.moveTo(m, m + corner); ctx.lineTo(m, m); ctx.lineTo(m + corner, m); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(width - m - corner, m); ctx.lineTo(width - m, m); ctx.lineTo(width - m, m + corner); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(m, height - m - corner); ctx.lineTo(m, height - m); ctx.lineTo(m + corner, height - m); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(width - m - corner, height - m); ctx.lineTo(width - m, height - m); ctx.lineTo(width - m, height - m - corner); ctx.stroke();
+
+      // Optional: Standard Capture Indicator
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.fillRect(m, m, 180, 28);
+      ctx.fillStyle = '#fff';
+      ctx.font = '13px "Courier New", monospace';
+      ctx.textAlign = 'left';
+      // Blinking record dot
+      if (Math.floor(Date.now() / 500) % 2 === 0) {
+        ctx.fillStyle = '#ff0000';
+        ctx.beginPath(); ctx.arc(m + 14, m + 14, 5, 0, 2 * Math.PI); ctx.fill();
+      }
+      ctx.fillStyle = '#fff';
+      ctx.fillText('STANDARD CAPTURE', m + 26, m + 18);
 
       requestAnimationFrame(render);
     };
@@ -396,11 +480,17 @@ export function CurvatureChecker({ bananaId }: { bananaId: string }) {
                     CANCEL
                   </button>
                 </div>
-                <div style={{ position: 'absolute', top: '20px', left: '20px', backgroundColor: 'rgba(0,0,0,0.6)', color: '#fff', padding: '12px', borderRadius: '4px', fontSize: '0.8rem', fontFamily: 'monospace' }}>
-                  <div style={{ color: 'var(--status-green)', marginBottom: '4px' }}>CAMERA ALIGNMENT</div>
-                  <div>- Place specimen on flat surface</div>
-                  <div>- Keep camera parallel to plane</div>
-                  <div>- Keep entire specimen visible</div>
+                {/* 7. Instruction panel at top right */}
+                <div style={{ position: 'absolute', top: '20px', right: '20px', width: '280px', backgroundColor: 'rgba(0,0,0,0.75)', color: '#fff', padding: '16px', borderRadius: '6px', fontSize: '0.85rem', fontFamily: 'monospace', border: '1px solid rgba(0, 255, 255, 0.4)', backdropFilter: 'blur(4px)' }}>
+                  <div style={{ color: '#00ffff', marginBottom: '12px', fontWeight: 'bold', fontSize: '1rem', display: 'flex', justifyContent: 'space-between' }}>
+                    <span>ALIGN SPECIMEN</span>
+                  </div>
+                  <ul style={{ margin: 0, paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '8px', color: 'rgba(255, 255, 255, 0.9)' }}>
+                    <li>Place banana inside the guide</li>
+                    <li>Keep both ends visible</li>
+                    <li>Keep camera parallel to specimen</li>
+                    <li>Avoid shadows & excessive rotation</li>
+                  </ul>
                 </div>
               </div>
             )}

@@ -52,7 +52,7 @@ export default async function DocumentViewerPage({ params }: { params: Promise<{
         <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
           {/* We render all of them stacked for the complete file */}
           <div className="page-break" style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-            <h1 style={{ fontSize: '3rem', color: 'var(--gov-blue)' }}>NATIONAL BANANA REGISTRY</h1>
+            <h1 style={{ fontSize: '3rem', color: 'var(--gov-blue)' }}>PAZAMAYI SHERIYAYI</h1>
             <h2 style={{ fontSize: '2rem', letterSpacing: '2px' }}>COMPLETE BANANA RECORD</h2>
             <div style={{ marginTop: '40px', fontSize: '1.2rem', textAlign: 'left', border: '2px solid var(--border-color)', padding: '24px' }}>
               <p><strong>Banana:</strong> {banana.officialName}</p>

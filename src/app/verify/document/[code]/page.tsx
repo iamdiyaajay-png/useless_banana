@@ -14,7 +14,7 @@ export default async function QRVerificationPage({ params }: { params: Promise<{
     <div style={{ maxWidth: '800px', margin: '40px auto', padding: '24px' }}>
       <div style={{ textAlign: 'center', marginBottom: '32px' }}>
         <h1 style={{ color: 'var(--gov-blue)', margin: '0 0 8px 0' }}>DIGITAL DOCUMENT VERIFICATION</h1>
-        <p style={{ color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '2px' }}>National Banana Registry</p>
+        <p style={{ color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '2px' }}>Pazamayi Sheriyayi</p>
       </div>
 
       <OfficialCard title="AUTHENTICATION RESULT">

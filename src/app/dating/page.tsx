@@ -1,137 +1,74 @@
 import React from 'react';
 import { prisma } from '@/lib/services';
-import { notFound } from 'next/navigation';
-import { OfficialCard } from '@/components/ui/OfficialCard';
 import Link from 'next/link';
-import DatingIntakePage from '../registry/[id]/dating/page'; // Fallback if not activated
 
 export const revalidate = 0;
 
-export default async function GlobalDatingPage() {
-  // Try to find the canonical demo banana first
-  let banana = await prisma.banana.findUnique({
-    where: { id: 'BNR-KL-2026-004821' },
-    include: {
-      relationships: {
-        include: { foodPartner: true }
-      }
-    }
+export default async function DatingSelectionPage() {
+  const bananas = await prisma.banana.findMany({
+    orderBy: { createdAt: 'desc' }
   });
 
-  // Fallback to most recently registered banana if demo is missing
-  if (!banana) {
-    banana = await prisma.banana.findFirst({
-      orderBy: { createdAt: 'desc' },
-      include: {
-        relationships: {
-          include: { foodPartner: true }
-        }
-      }
-    });
-  }
-
-  if (!banana) return notFound();
-
-  // If not activated, render the intake page logic
-  if (banana.datingAvailability === 'NOT_ACTIVATED') {
-    // Reusing the intake component with simulated params
-    return <DatingIntakePage params={Promise.resolve({ id: banana.id })} />;
-  }
-
-  const partners = await prisma.foodPartner.findMany();
-  const currentRelationship = banana.relationships.find((r: any) => r.status === 'IN_RELATIONSHIP');
-
   return (
-    <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
-      
-      {/* Main Content: Partner Grid */}
-      <div style={{ flex: '2 1 600px' }}>
-        <div style={{ marginBottom: '24px' }}>
-          <h2 style={{ fontSize: '1.5rem', color: 'var(--gov-blue)', marginBottom: '8px' }}>POTENTIAL MATCHES</h2>
-          <p style={{ color: 'var(--text-light)' }}>Browse the registry of culinary partners available for compatibility assessment.</p>
-        </div>
+    <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+      <div style={{ marginBottom: '32px', textAlign: 'center' }}>
+        <h1 style={{ fontSize: '2.5rem', color: 'var(--gov-blue)', marginBottom: '8px' }}>PAZAMAYI SHERIYAYI DATING PORTAL</h1>
+        <p style={{ color: 'var(--text-light)', fontSize: '1.2rem' }}>Select a registered specimen to enter the Dating Portal.</p>
+      </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
-          {partners.map(partner => (
-            <div key={partner.id} style={{ border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden', backgroundColor: '#fff', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ backgroundColor: '#ffe6e6', padding: '24px', textAlign: 'center', fontSize: '4rem', borderBottom: '1px solid var(--border-color)' }}>
-                {partner.imageIcon || '🍽️'}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' }}>
+        {bananas.map(banana => (
+          <div key={banana.id} style={{ border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden', backgroundColor: '#fff', display: 'flex', flexDirection: 'column', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
+            
+            {banana.photo ? (
+              <div style={{ height: '200px', backgroundColor: '#f0f0f0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                 <img src={banana.photo} alt="Banana" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <div style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <h3 style={{ margin: '0 0 4px 0', fontSize: '1.2rem', color: 'var(--text-dark)' }}>{partner.name}</h3>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', marginBottom: '12px', textTransform: 'uppercase' }}>{partner.personalityType}</div>
-                
-                <div style={{ marginBottom: '16px' }}>
-                   {JSON.parse(partner.greenFlags || '[]').slice(0, 2).map((gf: string) => (
-                     <div key={gf} style={{ fontSize: '0.8rem', color: 'var(--status-green)', marginBottom: '4px' }}>💚 {gf}</div>
-                   ))}
-                   {JSON.parse(partner.redFlags || '[]').length > 0 && (
-                     <div style={{ fontSize: '0.8rem', color: 'var(--status-red)', marginBottom: '4px' }}>🚩 {JSON.parse(partner.redFlags || '[]').length} Red Flags</div>
-                   )}
-                </div>
+            ) : (
+              <div style={{ height: '200px', backgroundColor: '#f0f0f0', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '4rem' }}>
+                🍌
+              </div>
+            )}
 
-                <div style={{ marginTop: 'auto' }}>
-                  <Link href={`/registry/${banana.id}/dating/partner/${partner.id}`} style={{ display: 'block', textAlign: 'center', backgroundColor: 'var(--gov-blue)', color: '#fff', padding: '10px', textDecoration: 'none', borderRadius: '4px', fontWeight: 'bold' }}>
-                    VIEW LOVE FILE 💘
-                  </Link>
+            <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase', marginBottom: '4px' }}>
+                ID: {banana.registrationNumber}
+              </div>
+              <h3 style={{ margin: '0 0 16px 0', fontSize: '1.4rem', color: 'var(--gov-blue)' }}>
+                {banana.officialName}
+              </h3>
+              
+              <div style={{ marginBottom: '16px', display: 'flex', gap: '16px' }}>
+                <div>
+                  <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-light)' }}>Status</span>
+                  <strong style={{ color: banana.datingAvailability === 'NOT_ACTIVATED' ? 'var(--text-light)' : 'var(--status-green)' }}>
+                    {banana.datingAvailability === 'NOT_ACTIVATED' ? 'INACTIVE' : 'ACTIVE'}
+                  </strong>
                 </div>
+                <div>
+                  <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-light)' }}>Variety</span>
+                  <strong>{banana.estimatedVariety || 'Unknown'}</strong>
+                </div>
+              </div>
+
+              <div style={{ marginTop: 'auto' }}>
+                <Link href={banana.datingAvailability === 'NOT_ACTIVATED' ? `/registry/${banana.id}/dating` : `/registry/${banana.id}/dating/dashboard`} style={{ display: 'block', textAlign: 'center', backgroundColor: 'var(--gov-blue)', color: '#fff', padding: '12px', textDecoration: 'none', borderRadius: '4px', fontWeight: 'bold' }}>
+                  ENTER AS {banana.officialName.toUpperCase()} 💘
+                </Link>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        ))}
 
-      {/* Sidebar */}
-      <div style={{ flex: '1 1 300px' }}>
-        <OfficialCard title="Dating Profile">
-          <div style={{ marginBottom: '16px' }}>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase' }}>Love File No.</div>
-            <div style={{ fontFamily: 'monospace', fontSize: '1.1rem' }}>{banana.registrationNumber}</div>
-          </div>
-          <div style={{ marginBottom: '16px' }}>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase' }}>Identity</div>
-            <div style={{ fontWeight: 'bold' }}>{banana.officialName}</div>
-          </div>
-          <div style={{ marginBottom: '16px' }}>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase' }}>Status</div>
-            <div style={{ color: banana.datingAvailability === 'OPEN_FOR_MATCHING' ? 'var(--status-green)' : 'var(--gov-blue)', fontWeight: 'bold' }}>{banana.datingAvailability}</div>
-          </div>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase' }}>Looking For</div>
-            <div>{banana.datingIntention}</div>
-          </div>
-        </OfficialCard>
-
-        {currentRelationship && (
-          <div style={{ marginTop: '24px' }}>
-            <OfficialCard title="Current Relationship">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-                <div style={{ fontSize: '3rem' }}>{currentRelationship.foodPartner.imageIcon}</div>
-                <div>
-                  <h3 style={{ margin: 0, color: 'var(--gov-blue)' }}>{currentRelationship.foodPartner.name}</h3>
-                  <div style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>Official Partner</div>
-                </div>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid var(--border-color)', paddingTop: '12px' }}>
-                <span style={{ color: 'var(--text-light)' }}>Compatibility</span>
-                <strong style={{ color: 'var(--status-green)' }}>{currentRelationship.compatibilityScore}%</strong>
-              </div>
-            </OfficialCard>
+        {bananas.length === 0 && (
+          <div style={{ gridColumn: '1 / -1', padding: '40px', textAlign: 'center', backgroundColor: '#f9f9f9', border: '1px solid var(--border-color)', borderRadius: '8px' }}>
+            <p style={{ fontSize: '1.2rem', color: 'var(--text-light)', marginBottom: '16px' }}>No specimens found in the registry.</p>
+            <Link href="/register" style={{ display: 'inline-block', backgroundColor: 'var(--gov-blue)', color: '#fff', padding: '10px 20px', textDecoration: 'none', borderRadius: '4px', fontWeight: 'bold' }}>
+              Register a New Specimen
+            </Link>
           </div>
         )}
-
-        <div style={{ marginTop: '24px' }}>
-          <OfficialCard title="Quick Actions">
-            <Link href={`/registry/${banana.id}/dating/compare`} style={{ display: 'block', padding: '12px', backgroundColor: 'var(--gov-blue-light)', color: 'var(--gov-blue-dark)', textDecoration: 'none', borderRadius: '4px', border: '1px solid var(--gov-blue)', fontWeight: 'bold', textAlign: 'center', marginBottom: '12px' }}>
-              ⚖️ Compare Partners
-            </Link>
-            <Link href={`/registry/${banana.id}`} style={{ display: 'block', padding: '12px', backgroundColor: '#fff', color: 'var(--text-dark)', textDecoration: 'none', borderRadius: '4px', border: '1px solid var(--border-color)', fontWeight: 'bold', textAlign: 'center' }}>
-              View Life Record
-            </Link>
-          </OfficialCard>
-        </div>
       </div>
-
     </div>
   );
 }

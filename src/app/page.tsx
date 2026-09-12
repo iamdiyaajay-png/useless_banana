@@ -18,7 +18,7 @@ export default async function Home() {
       <div style={{ marginBottom: '32px' }}>
         <h1 style={{ fontSize: '2rem', marginBottom: '8px' }}>Central Registry Dashboard</h1>
         <p style={{ color: 'var(--text-light)', fontSize: '1.1rem' }}>
-          Welcome to the National Banana Registry. View recently registered subjects below.
+          Welcome to the Pazamayi Sheriyayi. View recently registered subjects below.
         </p>
       </div>
 

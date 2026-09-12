@@ -14,11 +14,20 @@ export function CertificateTemplate({ type, banana, document }: { type: 'REGISTR
         <p style={{ fontSize: '1.2rem', textAlign: 'center', margin: '40px 0' }}>
           This is to certify that the specimen identified as
         </p>
-        <h3 style={{ fontSize: '2.5rem', textAlign: 'center', color: 'var(--gov-blue)', margin: '0 0 8px 0' }}>
-          {banana.officialName}
-        </h3>
+        
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px', marginBottom: '40px' }}>
+          <h3 style={{ fontSize: '2.5rem', textAlign: 'center', color: 'var(--gov-blue)', margin: 0 }}>
+            {banana.officialName}
+          </h3>
+          {banana.photo && (
+            <div style={{ width: '80px', height: '100px', border: '2px solid var(--gov-blue)', padding: '2px', backgroundColor: '#fff' }}>
+              <img src={banana.photo} alt="Banana" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          )}
+        </div>
+
         <p style={{ textAlign: 'center', fontSize: '1.2rem', margin: '0 0 40px 0' }}>
-          has been officially registered in the National Banana Registry.
+          has been officially registered in the Pazamayi Sheriyayi.
         </p>
         
         <table style={{ width: '80%', margin: '0 auto', borderCollapse: 'collapse', fontSize: '1.1rem' }}>
@@ -54,9 +63,17 @@ export function CertificateTemplate({ type, banana, document }: { type: 'REGISTR
         <p style={{ fontSize: '1.2rem', textAlign: 'center', margin: '40px 0' }}>
           This record formally attests to the estimated origin and emergence of
         </p>
-        <h3 style={{ fontSize: '2.5rem', textAlign: 'center', color: 'var(--gov-blue)', margin: '0 0 8px 0' }}>
-          {banana.officialName}
-        </h3>
+
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '32px', marginBottom: '40px' }}>
+          <h3 style={{ fontSize: '2.5rem', textAlign: 'center', color: 'var(--gov-blue)', margin: 0 }}>
+            {banana.officialName}
+          </h3>
+          {banana.photo && (
+            <div style={{ width: '80px', height: '100px', border: '2px solid var(--gov-blue)', padding: '2px', backgroundColor: '#fff' }}>
+              <img src={banana.photo} alt="Banana" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          )}
+        </div>
         
         <div style={{ textAlign: 'center', margin: '40px 0', padding: '24px', border: '2px dashed var(--muted-gold)', backgroundColor: '#fffdf5' }}>
            <div style={{ fontSize: '1rem', color: 'var(--text-light)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '8px' }}>ESTIMATED DATE OF ORIGIN/BIRTH</div>
@@ -98,16 +115,26 @@ export function CertificateTemplate({ type, banana, document }: { type: 'REGISTR
         </div>
 
         <p style={{ fontSize: '1.2rem', textAlign: 'center', margin: '40px 0', position: 'relative', zIndex: 1 }}>
-          The National Banana Registry has formally assessed the culinary chemistry between
+          The Pazamayi Sheriyayi has formally assessed the culinary chemistry between
         </p>
         
         <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', margin: '0 0 40px 0', position: 'relative', zIndex: 1 }}>
-           <div style={{ textAlign: 'center', flex: 1 }}>
+           <div style={{ textAlign: 'center', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+             {banana.photo && (
+               <div style={{ width: '80px', height: '100px', border: '2px solid var(--gov-blue)', padding: '2px', backgroundColor: '#fff', marginBottom: '16px' }}>
+                 <img src={banana.photo} alt="Banana" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+               </div>
+             )}
              <h3 style={{ fontSize: '1.8rem', color: 'var(--gov-blue)', margin: 0 }}>{banana.officialName}</h3>
              <div style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>Registered Specimen</div>
            </div>
            <div style={{ fontSize: '2rem', color: '#cc0000', margin: '0 24px' }}>&</div>
-           <div style={{ textAlign: 'center', flex: 1 }}>
+           <div style={{ textAlign: 'center', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+             {relationship?.foodPartner?.imageIcon && (
+               <div style={{ width: '80px', height: '100px', border: '2px solid #cc0000', padding: '2px', backgroundColor: '#fff', marginBottom: '16px' }}>
+                 <img src={relationship.foodPartner.imageIcon} alt="Partner" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+               </div>
+             )}
              <h3 style={{ fontSize: '1.8rem', color: 'var(--gov-blue)', margin: 0 }}>{relationship ? relationship.foodPartner.name : 'UNKNOWN'}</h3>
              <div style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>Certified Partner</div>
            </div>
@@ -143,7 +170,7 @@ export function CertificateTemplate({ type, banana, document }: { type: 'REGISTR
 
   return (
     <div className="document-content document-border">
-      <div className="watermark">NATIONAL BANANA REGISTRY</div>
+      <div className="watermark">PAZAMAYI SHERIYAYI</div>
       <DocumentHeader title={title} />
       
       <div style={{ minHeight: '400px' }}>
@@ -151,12 +178,12 @@ export function CertificateTemplate({ type, banana, document }: { type: 'REGISTR
       </div>
 
       <div style={{ marginTop: '60px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-         <div className="seal-area">
-           OFFICIAL<br/>SEAL
+         <div className="seal-area" style={{ border: 'none', padding: 0, width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden' }}>
+           <img src="/seal.png" alt="Official Seal" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
          </div>
          <div style={{ textAlign: 'center', width: '250px' }}>
-           <div style={{ borderBottom: '1px solid var(--text-dark)', marginBottom: '8px', height: '40px', fontFamily: 'cursive', fontSize: '1.5rem', color: 'var(--gov-blue)' }}>
-             {isCompatibility ? 'Cupid Div.' : 'NBRegistry'}
+           <div style={{ borderBottom: '1px solid var(--text-dark)', marginBottom: '8px', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+             <img src="/signature.png" alt="Signature" style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }} />
            </div>
            <div style={{ fontSize: '0.9rem', color: 'var(--text-dark)', fontWeight: 'bold' }}>Authorized Signature</div>
            <div style={{ fontSize: '0.8rem', color: 'var(--text-light)' }}>{isCompatibility ? 'Compatibility Division' : 'Documentation Division'}</div>

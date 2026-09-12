@@ -9,10 +9,12 @@ export function BanadhaarTemplate({ banana, document }: { banana: any, document:
          {/* Card Header */}
          <div style={{ backgroundColor: 'var(--gov-blue)', color: '#fff', padding: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px' }}>
             <div style={{ backgroundColor: '#fff', borderRadius: '50%', padding: '4px', display: 'flex' }}>
-              <div style={{ width: '32px', height: '32px', border: '1px solid var(--muted-gold)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '0.8rem' }}>🍌</div>
+              <div style={{ width: '32px', height: '32px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+                <img src="/logo.png" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
             </div>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '1px' }}>NATIONAL BANANA REGISTRY</div>
+              <div style={{ fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '1px' }}>PAZAMAYI SHERIYAYI</div>
               <div style={{ fontSize: '0.8rem', color: 'var(--muted-gold)' }}>BANANA IDENTITY CARD</div>
             </div>
          </div>
@@ -64,7 +66,7 @@ export function BanadhaarTemplate({ banana, document }: { banana: any, document:
       {/* BACK OF CARD */}
       <div style={{ width: '600px', height: '380px', backgroundColor: '#fff', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.15)', overflow: 'hidden', position: 'relative', border: '1px solid #ccc', padding: '24px', display: 'flex', flexDirection: 'column' }}>
          <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', marginBottom: '16px', fontStyle: 'italic' }}>
-           This card establishes the identity of the specimen in the National Banana Registry. It is a fictional document.
+           This card establishes the identity of the specimen in the Pazamayi Sheriyayi. It is a fictional document.
          </div>
 
          <div style={{ display: 'flex', gap: '24px', flex: 1 }}>
@@ -104,9 +106,11 @@ export function BanadhaarTemplate({ banana, document }: { banana: any, document:
          <div style={{ borderTop: '1px solid #eee', paddingTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
            <div style={{ fontSize: '0.7rem', color: 'var(--gov-blue)' }}>
              <strong>Authorized Digital Record</strong><br/>
-             National Banana Registry
+             Pazamayi Sheriyayi
            </div>
-           <div style={{ fontSize: '1.2rem', fontFamily: 'cursive', color: 'var(--gov-blue)' }}>NBRegistry</div>
+           <div style={{ height: '30px', display: 'flex', alignItems: 'flex-end' }}>
+             <img src="/signature.png" alt="Signature" style={{ maxHeight: '100%', maxWidth: '100px', objectFit: 'contain' }} />
+           </div>
          </div>
       </div>
 

@@ -4,22 +4,23 @@ export function DocumentHeader({ title }: { title?: string }) {
   return (
     <div style={{ textAlign: 'center', marginBottom: '32px', borderBottom: '2px solid var(--gov-blue)', paddingBottom: '24px' }}>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-        {/* Fictional Three-Banana Emblem */}
+        {/* Official Logo */}
         <div style={{ 
           width: '80px', height: '80px', 
           border: '3px solid var(--muted-gold)', 
           borderRadius: '50%', 
           display: 'flex', justifyContent: 'center', alignItems: 'center', 
-          fontSize: '2rem',
           backgroundColor: '#fff',
-          boxShadow: 'inset 0 0 10px rgba(197, 168, 128, 0.2)'
+          boxShadow: 'inset 0 0 10px rgba(197, 168, 128, 0.2)',
+          padding: '4px',
+          overflow: 'hidden'
         }}>
-          🍌🍌🍌
+          <img src="/logo.png" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
         </div>
         
         <div style={{ textAlign: 'left' }}>
           <h1 style={{ margin: '0 0 4px 0', color: 'var(--gov-blue)', fontSize: '1.8rem', letterSpacing: '2px', fontFamily: 'var(--font-family-serif)' }}>
-            NATIONAL BANANA REGISTRY
+            PAZAMAYI SHERIYAYI
           </h1>
           <div style={{ color: 'var(--muted-gold)', fontSize: '0.9rem', letterSpacing: '4px', textTransform: 'uppercase', fontWeight: 'bold' }}>
             Identify • Analyse • Verify

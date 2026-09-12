@@ -28,12 +28,18 @@ export function Sidebar() {
         <Link href="/verify" style={linkStyle}>Verify Document</Link>
         <Link href="/audit" style={linkStyle}>Audit Logs</Link>
       </nav>
+
       <div style={{ padding: '0 20px', marginTop: '32px', marginBottom: '20px', color: 'var(--text-light)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
         Analysis Tools
       </div>
       <nav>
         <Link href="/analysis/curvature" style={linkStyle}>Curvature Checker</Link>
       </nav>
+      <div style={{ marginTop: 'auto', paddingTop: '40px', paddingBottom: '20px', textAlign: 'center' }}>
+        <Link href="/admin" style={{ fontSize: '0.75rem', color: 'var(--text-light)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+          🔒 Staff / Admin Login
+        </Link>
+      </div>
     </aside>
   );
 }

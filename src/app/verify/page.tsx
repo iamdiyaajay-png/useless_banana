@@ -150,7 +150,7 @@ function VerifyContent() {
 
            {activeTab === 'VISUAL' && !photoUrl && (
              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <p>Upload a photograph of the specimen to verify its identity against the National Banana Registry using BananaPrint.</p>
+                <p>Upload a photograph of the specimen to verify its identity against the Pazamayi Sheriyayi using BananaPrint.</p>
                 <div style={{ border: '2px dashed var(--border-color)', padding: '40px', textAlign: 'center', borderRadius: '4px' }}>
                   <input type="file" accept="image/*" onChange={handleImageChange} style={{ fontSize: '1rem' }} />
                 </div>

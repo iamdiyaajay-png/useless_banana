@@ -21,18 +21,10 @@ export async function registerBanana(formData: FormData) {
       return { error: 'REG-ERR-1002: Invalid file type. Please upload a valid image.' };
     }
 
-    // Handle File Upload
-    const bytes = await photoFile.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    
-    // Generate unique filename
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const filename = `${uniqueSuffix}-${photoFile.name.replace(/[^a-zA-Z0-9.-]/g, '')}`;
-    const uploadDir = join(process.cwd(), 'public', 'uploads');
-    const filepath = join(uploadDir, filename);
-
-    await writeFile(filepath, buffer);
-    const photoUrl = `/uploads/${filename}`;
+    // Handle File Upload as Base64
+    const arrayBuffer = await photoFile.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const photoUrl = `data:${photoFile.type};base64,${buffer.toString('base64')}`;
 
     // Database Registration
     const bananaId = await generateBananaId();
@@ -52,7 +44,7 @@ export async function registerBanana(formData: FormData) {
     await logEvent(
       newBanana.id,
       'BANANA_REGISTERED',
-      'Banana successfully registered in the National Banana Registry.',
+      'Banana successfully registered in the Pazamayi Sheriyayi.',
       'REGISTRY'
     );
 

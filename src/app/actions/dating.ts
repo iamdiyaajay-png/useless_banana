@@ -45,14 +45,25 @@ export async function calculateCompatibility(bananaId: string, partnerId: string
     const partner = await prisma.foodPartner.findUnique({ where: { id: partnerId } });
     if (!partner) throw new Error('Partner not found');
 
-    const attr = JSON.parse(partner.compatibilityAttributes || '{}');
-    
-    const wTrad = (attr.traditionalPairing || 0) * 0.30;
-    const wTaste = (attr.taste || 0) * 0.25;
-    const wText = (attr.texture || 0) * 0.15;
-    const wFreq = (attr.frequency || 0) * 0.10;
-    const wStab = (attr.stability || 0) * 0.10;
-    const wHist = (attr.history || 0) * 0.10;
+    const hashStr = (str: string) => {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      return Math.abs(hash);
+    };
+
+    const getAttr = (key: string) => {
+      const seed = hashStr(`${bananaId}-${partnerId}-${key}`);
+      return 40 + (seed % 60);
+    };
+
+    const wTrad = getAttr('traditionalPairing') * 0.30;
+    const wTaste = getAttr('taste') * 0.25;
+    const wText = getAttr('texture') * 0.15;
+    const wFreq = getAttr('frequency') * 0.10;
+    const wStab = getAttr('stability') * 0.10;
+    const wHist = getAttr('history') * 0.10;
 
     let overallScore = wTrad + wTaste + wText + wFreq + wStab + wHist;
     overallScore = Math.max(0, Math.min(100, Math.round(overallScore)));
@@ -60,20 +71,23 @@ export async function calculateCompatibility(bananaId: string, partnerId: string
     // Risk Assessment
     let risk = 'LOW';
     let riskReason = 'No previous relationships recorded and strong stability attributes.';
-    const history = JSON.parse(partner.datingHistory || '[]');
+    const hasHistory = !!partner.datingHistory;
     const redFlags = JSON.parse(partner.redFlags || '[]');
 
-    if (history.length > 1 || redFlags.length > 1) {
+    if (hasHistory || redFlags.length > 1) {
       risk = 'MODERATE';
       riskReason = 'Previous relationship history or minor trust issues detected.';
     }
-    if (history.some((h: any) => h.status === 'COMPLICATED' || h.reason.includes('dispute')) || redFlags.length >= 2) {
+    if (redFlags.length >= 2) {
       risk = 'HIGH';
       riskReason = 'Complicated relationship history and multiple red flags present.';
     }
 
+    const tradScore = getAttr('traditionalPairing');
+    const tasteScore = getAttr('taste');
+
     // Explanation string
-    const explanation = `The banana and ${partner.name} demonstrate a ${overallScore > 80 ? 'strong' : overallScore > 50 ? 'moderate' : 'weak'} structural compatibility. Traditional pairing is evaluated at ${attr.traditionalPairing}%. Taste chemistry is ${attr.taste}%. Relationship history introduces ${risk.toLowerCase()} risk.`;
+    const explanation = `The banana and ${partner.name} demonstrate a ${overallScore > 80 ? 'strong' : overallScore > 50 ? 'moderate' : 'weak'} structural compatibility. Traditional pairing is evaluated at ${tradScore}%. Taste chemistry is ${tasteScore}%. Relationship history introduces ${risk.toLowerCase()} risk.`;
 
     const verdict = overallScore > 85 ? 'HIGH COMPATIBILITY' : overallScore > 60 ? 'MODERATE COMPATIBILITY' : 'LOW COMPATIBILITY';
     const recommendation = overallScore > 85 ? 'PROCEED WITH CAUTIOUS OPTIMISM' : overallScore > 60 ? 'PROCEED WITH CAUTION' : 'NOT RECOMMENDED FOR LONG-TERM PAIRING';
@@ -94,12 +108,12 @@ export async function calculateCompatibility(bananaId: string, partnerId: string
       verdict,
       recommendation,
       breakdown: {
-        traditional: attr.traditionalPairing,
-        taste: attr.taste,
-        texture: attr.texture,
-        frequency: attr.frequency,
-        stability: attr.stability,
-        history: attr.history
+        traditional: tradScore,
+        taste: tasteScore,
+        texture: getAttr('texture'),
+        frequency: getAttr('frequency'),
+        stability: getAttr('stability'),
+        history: getAttr('history')
       }
     };
 

@@ -1,33 +1,40 @@
 'use client';
 
 import React, { useState } from 'react';
+import { PartnerIcon } from '@/components/ui/PartnerIcon';
 
-export function PartnerComparison({ partners }: { partners: any[] }) {
+export function PartnerComparison({ partners, banana }: { partners: any[], banana: any }) {
   const [p1Id, setP1Id] = useState<string>('');
   const [p2Id, setP2Id] = useState<string>('');
 
   const p1 = partners.find(p => p.id === p1Id);
   const p2 = partners.find(p => p.id === p2Id);
 
-  const getAttr = (partner: any, key: string) => {
-    if (!partner) return 0;
-    try {
-      const attr = JSON.parse(partner.compatibilityAttributes || '{}');
-      return attr[key] || 0;
-    } catch {
-      return 0;
+  // Simple deterministic string hash
+  const hashStr = (str: string) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
+    return Math.abs(hash);
+  };
+
+  const getAttr = (partner: any, key: string) => {
+    if (!partner || !banana) return 0;
+    // Generate a deterministic pseudo-random score between 40 and 99
+    // based uniquely on the Banana ID, Partner ID, and the specific Factor Key
+    const seed = hashStr(`${banana.id}-${partner.id}-${key}`);
+    return 40 + (seed % 60);
   };
 
   const getScore = (partner: any) => {
-    if (!partner) return 0;
-    const attr = JSON.parse(partner.compatibilityAttributes || '{}');
-    const wTrad = (attr.traditionalPairing || 0) * 0.30;
-    const wTaste = (attr.taste || 0) * 0.25;
-    const wText = (attr.texture || 0) * 0.15;
-    const wFreq = (attr.frequency || 0) * 0.10;
-    const wStab = (attr.stability || 0) * 0.10;
-    const wHist = (attr.history || 0) * 0.10;
+    if (!partner || !banana) return 0;
+    const wTrad = getAttr(partner, 'traditionalPairing') * 0.30;
+    const wTaste = getAttr(partner, 'taste') * 0.25;
+    const wText = getAttr(partner, 'texture') * 0.15;
+    const wFreq = getAttr(partner, 'frequency') * 0.10;
+    const wStab = getAttr(partner, 'stability') * 0.10;
+    const wHist = getAttr(partner, 'history') * 0.10;
     return Math.max(0, Math.min(100, Math.round(wTrad + wTaste + wText + wFreq + wStab + wHist)));
   };
 
@@ -66,8 +73,16 @@ export function PartnerComparison({ partners }: { partners: any[] }) {
             <thead>
               <tr style={{ backgroundColor: '#f0f0f0', borderBottom: '2px solid var(--border-color)' }}>
                 <th style={{ padding: '12px', textAlign: 'left' }}>Factor</th>
-                <th style={{ padding: '12px', fontSize: '1.2rem', color: s1 >= s2 ? 'var(--status-green)' : 'inherit' }}>{p1.name} {p1.imageIcon}</th>
-                <th style={{ padding: '12px', fontSize: '1.2rem', color: s2 >= s1 ? 'var(--status-green)' : 'inherit' }}>{p2.name} {p2.imageIcon}</th>
+                <th style={{ padding: '12px', fontSize: '1.2rem', color: s1 >= s2 ? 'var(--status-green)' : 'inherit' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                    {p1.name} <PartnerIcon icon={p1.imageIcon} size="2rem" />
+                  </div>
+                </th>
+                <th style={{ padding: '12px', fontSize: '1.2rem', color: s2 >= s1 ? 'var(--status-green)' : 'inherit' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                    {p2.name} <PartnerIcon icon={p2.imageIcon} size="2rem" />
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>

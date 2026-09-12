@@ -3,6 +3,7 @@ import { prisma } from '@/lib/services';
 import { notFound, redirect } from 'next/navigation';
 import { OfficialCard } from '@/components/ui/OfficialCard';
 import Link from 'next/link';
+import { PartnerIcon } from '@/components/ui/PartnerIcon';
 
 export const revalidate = 0;
 
@@ -38,8 +39,8 @@ export default async function DatingDashboard({ params }: { params: Promise<{ id
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
           {partners.map(partner => (
             <div key={partner.id} style={{ border: '1px solid var(--border-color)', borderRadius: '8px', overflow: 'hidden', backgroundColor: '#fff', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ backgroundColor: '#ffe6e6', padding: '24px', textAlign: 'center', fontSize: '4rem', borderBottom: '1px solid var(--border-color)' }}>
-                {partner.imageIcon || '🍽️'}
+              <div style={{ backgroundColor: '#ffe6e6', padding: '24px', textAlign: 'center', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'center' }}>
+                <PartnerIcon icon={partner.imageIcon} size="6rem" />
               </div>
               <div style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <h3 style={{ margin: '0 0 4px 0', fontSize: '1.2rem', color: 'var(--text-dark)' }}>{partner.name}</h3>
@@ -90,7 +91,7 @@ export default async function DatingDashboard({ params }: { params: Promise<{ id
           <div style={{ marginTop: '24px' }}>
             <OfficialCard title="Current Relationship">
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-                <div style={{ fontSize: '3rem' }}>{currentRelationship.foodPartner.imageIcon}</div>
+                <PartnerIcon icon={currentRelationship.foodPartner.imageIcon} size="3rem" />
                 <div>
                   <h3 style={{ margin: 0, color: 'var(--gov-blue)' }}>{currentRelationship.foodPartner.name}</h3>
                   <div style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>Official Partner</div>
@@ -109,8 +110,11 @@ export default async function DatingDashboard({ params }: { params: Promise<{ id
             <Link href={`/registry/${id}/dating/compare`} style={{ display: 'block', padding: '12px', backgroundColor: 'var(--gov-blue-light)', color: 'var(--gov-blue-dark)', textDecoration: 'none', borderRadius: '4px', border: '1px solid var(--gov-blue)', fontWeight: 'bold', textAlign: 'center', marginBottom: '12px' }}>
               ⚖️ Compare Partners
             </Link>
-            <Link href={`/registry/${id}`} style={{ display: 'block', padding: '12px', backgroundColor: '#fff', color: 'var(--text-dark)', textDecoration: 'none', borderRadius: '4px', border: '1px solid var(--border-color)', fontWeight: 'bold', textAlign: 'center' }}>
+            <Link href={`/registry/${id}`} style={{ display: 'block', padding: '12px', backgroundColor: '#fff', color: 'var(--text-dark)', textDecoration: 'none', borderRadius: '4px', border: '1px solid var(--border-color)', fontWeight: 'bold', textAlign: 'center', marginBottom: '12px' }}>
               View Life Record
+            </Link>
+            <Link href="/admin" style={{ display: 'block', padding: '12px', backgroundColor: '#fff', color: '#b91c1c', textDecoration: 'none', borderRadius: '4px', border: '1px dashed #fca5a5', fontWeight: 'bold', textAlign: 'center', fontSize: '0.9rem' }}>
+              🔒 Edit Partners (Admin)
             </Link>
           </OfficialCard>
         </div>

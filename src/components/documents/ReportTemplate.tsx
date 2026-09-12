@@ -17,6 +17,8 @@ export function ReportTemplate({ type, banana, document }: { type: 'PHYSICAL' | 
            <div style={{ width: '200px', height: '200px', border: '2px solid var(--gov-blue)', backgroundColor: '#f0f0f0', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '4px' }}>
               {analysis && analysis.imageReference ? (
                 <img src={analysis.imageReference} alt="Specimen" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              ) : banana.photo ? (
+                <img src={banana.photo} alt="Specimen" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               ) : (
                 <span style={{ color: '#999', fontSize: '0.8rem' }}>NO IMAGE PROVIDED</span>
               )}
@@ -78,6 +80,11 @@ export function ReportTemplate({ type, banana, document }: { type: 'PHYSICAL' | 
     bodyContent = (
       <>
         <div style={{ textAlign: 'center', margin: '40px 0', padding: '24px', backgroundColor: 'var(--gov-blue-light)', border: '2px solid var(--gov-blue)' }}>
+           {banana.photo && (
+             <div style={{ width: '100px', height: '120px', border: '2px solid var(--gov-blue)', padding: '4px', backgroundColor: '#fff', margin: '0 auto 16px auto' }}>
+               <img src={banana.photo} alt="Banana" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+             </div>
+           )}
            <div style={{ fontSize: '1rem', color: 'var(--gov-blue)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '8px' }}>AI-ESTIMATED VARIETY</div>
            <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: 'var(--gov-blue-dark)' }}>
              {banana.estimatedVariety || 'ASSESSMENT PENDING'}
@@ -119,7 +126,7 @@ export function ReportTemplate({ type, banana, document }: { type: 'PHYSICAL' | 
 
   return (
     <div className="document-content document-border">
-      <div className="watermark">NATIONAL BANANA REGISTRY</div>
+      <div className="watermark">PAZAMAYI SHERIYAYI</div>
       <DocumentHeader title={title} />
       
       <div style={{ minHeight: '400px' }}>
@@ -127,12 +134,12 @@ export function ReportTemplate({ type, banana, document }: { type: 'PHYSICAL' | 
       </div>
 
       <div style={{ marginTop: '60px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-         <div className="seal-area">
-           OFFICIAL<br/>SEAL
+         <div className="seal-area" style={{ border: 'none', padding: 0, width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden' }}>
+           <img src="/seal.png" alt="Official Seal" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
          </div>
          <div style={{ textAlign: 'center', width: '250px' }}>
-           <div style={{ borderBottom: '1px solid var(--text-dark)', marginBottom: '8px', height: '40px', fontFamily: 'cursive', fontSize: '1.5rem', color: 'var(--gov-blue)' }}>
-             NBRegistry
+           <div style={{ borderBottom: '1px solid var(--text-dark)', marginBottom: '8px', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+             <img src="/signature.png" alt="Signature" style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }} />
            </div>
            <div style={{ fontSize: '0.9rem', color: 'var(--text-dark)', fontWeight: 'bold' }}>Authorized Signature</div>
            <div style={{ fontSize: '0.8rem', color: 'var(--text-light)' }}>Analysis Division</div>
