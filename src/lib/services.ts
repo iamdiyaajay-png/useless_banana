@@ -1,4 +1,4 @@
-import { PrismaClient } from '../generated/client';
+import { PrismaClient } from '@prisma/client';
 
 // Standard singleton pattern for PrismaClient in Next.js
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
@@ -14,7 +14,7 @@ export async function logEvent(
   eventType: string,
   description: string,
   source: string,
-  metadata?: any
+  metadata?: Record<string, unknown> | null
 ) {
   return await prisma.auditEvent.create({
     data: {
